@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Performance_test_csharp.Data;
 using Performance_test_csharp.Interfaces;
 using Performance_test_csharp.Models;
 

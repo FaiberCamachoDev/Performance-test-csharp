@@ -9,7 +9,7 @@ public interface IUserService
     Task CreateAsync(User user);
     Task UpdateAsync(User user);
     
-    // Métodos para las validaciones de duplicados requeridas [cite: 25, 62]
+    // Métodos para las validaciones de duplicados requeridas 
     Task<bool> DocumentExistsAsync(string document);
     Task<bool> EmailExistsAsync(string email);
 }

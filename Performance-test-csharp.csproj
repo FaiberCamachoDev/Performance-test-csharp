@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Reservation\" />
+    <Folder Include="Views\Deportive\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
 
