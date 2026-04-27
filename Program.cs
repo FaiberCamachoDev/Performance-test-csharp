@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using Performance_test_csharp.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//config de la base de datso
+builder.Services.AddDbContext<AppDbcontext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

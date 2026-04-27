@@ -7,7 +7,7 @@ public class DeportiveSpace
     [Key]
     public int Id { get; set; }
     
-    [Required(ErrorMessage =  "Username is required")]
+    [Required(ErrorMessage =  "Name space is required")]
     [StringLength(100, ErrorMessage = "The name cannot exceed 100 characters.")]
     public string Name { get; set; } = string.Empty;
     

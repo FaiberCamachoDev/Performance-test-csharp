@@ -11,7 +11,7 @@ public class User
     [StringLength(100, ErrorMessage = "The name cannot exceed 100 characters.")]
     public string Name { get; set; } = string.Empty;
     
-    [Required(ErrorMessage = "Password is required")]
+    [Required(ErrorMessage = "Document is required")]
     [StringLength(10, ErrorMessage = "The document cannot exceed 10 characters.")]
     public string Document { get; set; } = string.Empty; // único
     
