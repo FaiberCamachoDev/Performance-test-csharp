@@ -20,4 +20,9 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Reservation\" />
+    <Folder Include="Views\User\" />
+  </ItemGroup>
+
 </Project>

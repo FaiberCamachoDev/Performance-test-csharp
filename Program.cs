@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Performance_test_csharp.Data;
 using Performance_test_csharp.Interfaces;
+using Performance_test_csharp.Services;
 using Performance_test_csharp.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 // Config email service (añadir dependencias)
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IUserService, UserService>();
 //config de la base de datso
 builder.Services.AddDbContext<AppDbcontext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
