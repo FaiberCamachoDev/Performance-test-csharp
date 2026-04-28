@@ -24,8 +24,8 @@ public class EmailService : IEmailService
 
             a reservation has been created for {spaceName}.
             Date: {date:dd/MM/yyyy}
-            Start Hour: {startTime:HH:mm}
-            End Hour: {endTime:HH:mm}
+            Start Hour: {startTime:hh\:mm}
+            End Hour: {endTime:hh\:mm}
 
             Please, arrive 10 minutes early.
 

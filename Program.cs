@@ -11,11 +11,14 @@ builder.Services.AddControllersWithViews();
 // Config email service (añadir dependencias)
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IDeportiveSpace, DeportiveSpaceService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 //config de la base de datso
 builder.Services.AddDbContext<AppDbcontext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//todo: esto es para que postgres no cansonee con el utc de las fechas (:)
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

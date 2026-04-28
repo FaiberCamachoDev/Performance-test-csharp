@@ -10,6 +10,29 @@
     </a>
 </div>
 
+@if (TempData["Success"] != null)
+{
+    <div class="sm-alert-success sm-animate" style="
+        background: rgba(22,163,74,0.08);
+        border: 1px solid rgba(22,163,74,0.25);
+        color: var(--brand);
+        border-radius: var(--radius-sm);
+        padding: 12px 16px;
+        font-size: .9rem;
+        font-weight: 500;
+        margin-bottom: 1.25rem;
+        display: flex; align-items: center; gap: 8px;">
+        <i class="bi bi-check-circle-fill"></i> @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="sm-alert-error sm-animate" style="margin-bottom: 1.25rem;">
+        <i class="bi bi-exclamation-triangle-fill"></i> @TempData["Error"]
+    </div>
+}
+
 <div class="sm-card sm-animate sm-animate-d1">
     <div class="sm-table-wrap">
         <table class="sm-table">
@@ -20,13 +43,14 @@
                     <th>Date</th>
                     <th>Time Slot</th>
                     <th style="text-align:center">Status</th>
+                    <th style="text-align:center">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @if (!Model.Any())
                 {
                     <tr>
-                        <td colspan="5" style="text-align:center; padding:3rem; color:var(--text-muted);">
+                        <td colspan="6" style="text-align:center; padding:3rem; color:var(--text-muted);">
                             <i class="bi bi-calendar-x" style="font-size:2rem; display:block; margin-bottom:.5rem;"></i>
                             No bookings registered yet.
                         </td>
@@ -34,11 +58,17 @@
                 }
                 @foreach (var item in Model)
                 {
+                    var statusClass = item.Status switch {
+                        "Active"    => "sm-status-active",
+                        "Cancelled" => "sm-status-cancelled",
+                        "Finished"  => "sm-status-finished",
+                        _           => "sm-status-inactive"
+                    };
                     <tr>
                         <td>
                             <div style="display:flex; align-items:center; gap:10px;">
                                 <div class="sm-avatar">
-                                    @(item.User != null && item.User.Name.Length > 0 ? item.User.Name[0].ToString().ToUpper() : "?")
+                                    @(item.User?.Name.Length > 0 ? item.User.Name[0].ToString().ToUpper() : "?")
                                 </div>
                                 <span style="font-weight:600;">@(item.User?.Name ?? "—")</span>
                             </div>
@@ -55,9 +85,24 @@
                             @item.StartTime.ToString(@"hh\:mm") – @item.FinishTime.ToString(@"hh\:mm")
                         </td>
                         <td style="text-align:center;">
-                            <span class="sm-status @(item.Status == "Active" ? "sm-status-active" : "sm-status-inactive")">
-                                @item.Status
-                            </span>
+                            <span class="sm-status @statusClass">@item.Status</span>
+                        </td>
+                        <td style="text-align:center;">
+                            @if (item.Status == "Active")
+                            {
+                                <form asp-action="Cancel" asp-route-id="@item.Id" method="post"
+                                      onsubmit="return confirm('Cancel this booking?');"
+                                      style="display:inline;">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="sm-btn sm-btn-danger-ghost sm-btn-sm">
+                                        <i class="bi bi-x-circle"></i> Cancel
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span style="color:var(--text-muted); font-size:.82rem;">—</span>
+                            }
                         </td>
                     </tr>
                 }

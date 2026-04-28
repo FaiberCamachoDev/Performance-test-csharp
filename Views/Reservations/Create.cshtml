@@ -70,5 +70,17 @@
 </div>
 
 @section Scripts {
+    <script>
+        // Validación básica en el cliente
+        document.querySelector('form').addEventListener('submit', function (e) {
+            const start = document.querySelector('[name="StartTime"]').value;
+            const end = document.querySelector('[name="FinishTime"]').value;
+
+            if (start && end && start >= end) {
+                e.preventDefault();
+                alert("Error: The end time cannot be earlier than or equal to the start time.");
+            }
+        });
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

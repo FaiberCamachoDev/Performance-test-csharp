@@ -57,4 +57,14 @@ public class ReservationService : IReservationService
             end > r.StartTime);//todo: logica B
         return !exist; //todo: si no hay "OverLoap" de horario, es que ta avaliable. :D
     }
+    public async Task<bool> CancelAsync(int id)
+    {
+        var reservation = await _context.Reservations.FindAsync(id);
+        if (reservation == null || reservation.Status != "Active")
+            return false;
+
+        reservation.Status = "Cancelled";
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }

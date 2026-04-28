@@ -30,7 +30,7 @@ public class ReservationsController : Controller
         return View(reservations);
     }
 
-    public async Task<IActionResult> Create(int? id)
+    public async Task<IActionResult> Create()
     {
         await LoadViewBags();
         return View();
@@ -39,6 +39,10 @@ public class ReservationsController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(Reservation reservation)
     {
+        if (reservation.StartTime >= reservation.FinishTime)
+        {
+            ModelState.AddModelError("FinishTime", "The end time must be later than the start time.");
+        }
         if (ModelState.IsValid)
         {
             // validar disponibilidad usando el service
@@ -64,6 +68,19 @@ public class ReservationsController : Controller
         await LoadViewBags();
         return View(reservation);
     }
+    // POST reservation cancel
+    [HttpPost]
+    public async Task<IActionResult> Cancel(int id)
+    {
+        var success = await _reservationService.CancelAsync(id);
+
+        if (!success)
+            TempData["Error"] = "The reservation could not be cancelled. It may already be cancelled or not exist.";
+        else
+            TempData["Success"] = "Reservation cancelled successfully.";
+
+        return RedirectToAction(nameof(Index));
+    }
     
     // todo: private method para cargar los datos en los selects
     private async Task LoadViewBags()
@@ -71,7 +88,7 @@ public class ReservationsController : Controller
         var users = await _userService.GetAllAsync();
         var spaces = await _spaceService.GetAllAsync();
         
-        ViewBag.UserId = new SelectList(users, "Id", "FullName");
+        ViewBag.UserId = new SelectList(users, "Id", "Name");
         ViewBag.SpaceId = new SelectList(spaces, "Id", "Name");
     }
     
@@ -83,9 +100,9 @@ public class ReservationsController : Controller
         if (Res != null)
         {
             await _emailService.SendReservationtCreatedAsync(
-                Res.User.Email,
+                Res.User!.Email,
                 Res.User.Name,
-                Res.SportSpace.Name,
+                Res.SportSpace!.Name,
                 Res.Date,
                 Res.StartTime,
                 Res.FinishTime);

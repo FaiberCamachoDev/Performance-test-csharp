@@ -9,6 +9,8 @@ public interface IReservationService
     Task CreateAsync(Reservation reservation);
     Task UpdateAsync(Reservation reservation);
     
+    
+    Task<bool> CancelAsync(int id); //cancel
     // atributo de validacion de disponibilidad 
     Task<bool> IsSpaceAvailableAsync(int spaceId, DateTime date, TimeSpan start, TimeSpan end);
 }

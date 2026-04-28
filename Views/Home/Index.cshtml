@@ -2,44 +2,58 @@
     ViewData["Title"] = "Welcome";
 }
 
-<div class="sm-hero sm-animate">
-    <div>
-        <span class="sm-hero-eyebrow">
-            <i class="bi bi-lightning-charge-fill"></i> Management Panel
-        </span>
-        <h1 class="sm-hero-title">
-            Reserve your<br><span class="accent">sports venue</span><br>in seconds.
-        </h1>
-        <p class="sm-hero-sub">
-            Full control over bookings, sports spaces, and member registrations. 
-            Built to optimize every minute at your complex.
-        </p>
-        <div class="sm-hero-actions">
-            <a asp-controller="Reservations" asp-action="Create" class="sm-btn sm-btn-primary sm-btn-lg">
-                <i class="bi bi-plus-lg"></i> New Booking
-            </a>
-            <a asp-controller="DeportiveSpace" asp-action="Index" class="sm-btn sm-btn-ghost sm-btn-lg">
-                Explore Venues <i class="bi bi-arrow-right"></i>
-            </a>
-        </div>
+<div class="sm-hero-simple">
+    <span class="sm-hero-eyebrow">
+        <i class="bi bi-lightning-charge-fill"></i> Management Panel
+    </span>
+    <h1 class="sm-hero-title">
+        Reserve your <span class="accent">sports venue</span><br>in seconds.
+    </h1>
+    <p class="sm-hero-sub">
+        Full control over bookings, sports spaces, and member registrations.
+        Built to optimize every minute at your complex.
+    </p>
+    <div class="sm-hero-actions">
+        <a asp-controller="Reservations" asp-action="Create" class="sm-btn sm-btn-primary sm-btn-lg">
+            <i class="bi bi-plus-lg"></i> New Booking
+        </a>
+        <a asp-controller="DeportiveSpace" asp-action="Index" class="sm-btn sm-btn-ghost sm-btn-lg">
+            Explore Venues <i class="bi bi-arrow-right"></i>
+        </a>
     </div>
+</div>
 
-    <div class="sm-hero-image sm-animate sm-animate-d2">
-        <img src="https://images.unsplash.com/photo-1541252260730-0412e8e2108e?auto=format&fit=crop&q=80&w=900"
-             alt="Sports facility">
-        <div class="sm-hero-stats">
-            <div>
-                <div class="sm-stat-num">3</div>
-                <div class="sm-stat-label">Modules</div>
-            </div>
-            <div>
-                <div class="sm-stat-num">∞</div>
-                <div class="sm-stat-label">Bookings</div>
-            </div>
-            <div>
-                <div class="sm-stat-num">✓</div>
-                <div class="sm-stat-label">Conflict-free</div>
-            </div>
+<div class="sm-quick-grid">
+    <a asp-controller="Users" asp-action="Index" class="sm-quick-card">
+        <div class="sm-quick-icon" style="background:rgba(22,163,74,0.1); color:var(--brand);">
+            <i class="bi bi-people-fill"></i>
         </div>
-    </div>
+        <div>
+            <div class="sm-quick-title">Members</div>
+            <div class="sm-quick-sub">View and register athletes</div>
+        </div>
+        <i class="bi bi-arrow-right sm-quick-arrow"></i>
+    </a>
+
+    <a asp-controller="DeportiveSpace" asp-action="Index" class="sm-quick-card">
+        <div class="sm-quick-icon" style="background:rgba(99,78,255,0.1); color:#634eff;">
+            <i class="bi bi-geo-alt-fill"></i>
+        </div>
+        <div>
+            <div class="sm-quick-title">Venues</div>
+            <div class="sm-quick-sub">Courts, fields and gyms</div>
+        </div>
+        <i class="bi bi-arrow-right sm-quick-arrow"></i>
+    </a>
+
+    <a asp-controller="Reservations" asp-action="Index" class="sm-quick-card">
+        <div class="sm-quick-icon" style="background:rgba(217,119,6,0.1); color:#d97706;">
+            <i class="bi bi-calendar-check-fill"></i>
+        </div>
+        <div>
+            <div class="sm-quick-title">Bookings</div>
+            <div class="sm-quick-sub">Manage all reservations</div>
+        </div>
+        <i class="bi bi-arrow-right sm-quick-arrow"></i>
+    </a>
 </div>
