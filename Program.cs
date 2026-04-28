@@ -11,6 +11,7 @@ builder.Services.AddControllersWithViews();
 // Config email service (añadir dependencias)
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IReservationService, ReservationService>();
 //config de la base de datso
 builder.Services.AddDbContext<AppDbcontext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
