@@ -1,0 +1,51 @@
+@model IEnumerable<Performance_test_csharp.Models.DeportiveSpace>
+
+@{
+    var iconMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) {
+        { "Football",   "⚽" }, { "Basketball", "🏀" },
+        { "Tennis",     "🎾" }, { "Gym",        "🏋️" },
+        { "Swimming",   "🏊" }, { "Volleyball", "🏐" }
+    };
+}
+
+<div class="sm-section-header sm-animate">
+    <div>
+        <h2 class="sm-section-title">Sports Venues</h2>
+        <p class="sm-section-sub">Available courts, fields, and training spaces.</p>
+    </div>
+    <a asp-action="Create" asp-controller="DeportiveSpace" class="sm-btn sm-btn-primary">
+        <i class="bi bi-plus-circle-fill"></i> Add Venue
+    </a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="sm-card sm-animate sm-animate-d1" style="text-align:center; padding:4rem 2rem; color:var(--text-muted);">
+        <div style="font-size:3rem; margin-bottom:1rem;">🏟️</div>
+        <h4 style="font-family:'Syne',sans-serif; margin-bottom:.5rem;">No venues registered yet</h4>
+        <p style="font-size:.9rem;">Create your first sports space to start accepting bookings.</p>
+        <a asp-action="Create" asp-controller="DeportiveSpace" class="sm-btn sm-btn-primary" style="margin-top:1.25rem; display:inline-flex;">
+            <i class="bi bi-plus-lg"></i> Add First Venue
+        </a>
+    </div>
+}
+else
+{
+    <div class="sm-venue-grid sm-animate sm-animate-d1">
+        @foreach (var item in Model)
+        {
+            var icon = iconMap.ContainsKey(item.DeportSpaceType) ? iconMap[item.DeportSpaceType] : "🏟️";
+            <div class="sm-venue-card">
+                <div class="sm-venue-icon">@icon</div>
+                <div class="sm-venue-name">@item.Name</div>
+                <div style="margin-bottom:.75rem;">
+                    <span class="sm-pill sm-pill-green">@item.DeportSpaceType</span>
+                </div>
+                <div class="sm-venue-meta">
+                    <i class="bi bi-people-fill"></i>
+                    Capacity: <strong>@item.Capacidad</strong> people
+                </div>
+            </div>
+        }
+    </div>
+}

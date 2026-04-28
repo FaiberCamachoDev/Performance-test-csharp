@@ -1,0 +1,74 @@
+@model Performance_test_csharp.Models.Reservation
+
+<div class="sm-form-card sm-animate">
+    <div class="sm-card">
+        <div class="sm-card-body-lg">
+            <div class="sm-form-header">
+                <h2>Schedule Booking</h2>
+                <p>Select a member, venue, date and time slot. We'll check availability automatically.</p>
+            </div>
+
+            <form asp-action="Create" novalidate>
+                <div asp-validation-summary="ModelOnly" class="sm-alert-error"></div>
+
+                <div class="sm-form-group">
+                    <label class="sm-label">
+                        <i class="bi bi-person-fill" style="color:var(--brand); margin-right:5px;"></i>Member
+                    </label>
+                    <select asp-for="UserId" class="sm-select" asp-items="ViewBag.UserId">
+                        <option value="">— Select a member —</option>
+                    </select>
+                    <span asp-validation-for="UserId" class="sm-field-error"></span>
+                </div>
+
+                <div class="sm-form-group">
+                    <label class="sm-label">
+                        <i class="bi bi-geo-alt-fill" style="color:var(--brand); margin-right:5px;"></i>Sports Venue
+                    </label>
+                    <select asp-for="SpaceId" class="sm-select" asp-items="ViewBag.SpaceId">
+                        <option value="">— Select a venue —</option>
+                    </select>
+                    <span asp-validation-for="SpaceId" class="sm-field-error"></span>
+                </div>
+
+                <hr class="sm-form-divider">
+
+                <div class="sm-form-group">
+                    <label class="sm-label">
+                        <i class="bi bi-calendar3" style="color:var(--brand); margin-right:5px;"></i>Date
+                    </label>
+                    <input asp-for="Date" type="date" class="sm-input" />
+                    <span asp-validation-for="Date" class="sm-field-error"></span>
+                </div>
+
+                <div class="sm-row-2">
+                    <div class="sm-form-group">
+                        <label class="sm-label">
+                            <i class="bi bi-clock" style="color:var(--brand); margin-right:5px;"></i>Start Time
+                        </label>
+                        <input asp-for="StartTime" type="time" class="sm-input" />
+                        <span asp-validation-for="StartTime" class="sm-field-error"></span>
+                    </div>
+                    <div class="sm-form-group">
+                        <label class="sm-label">
+                            <i class="bi bi-clock-history" style="color:var(--brand); margin-right:5px;"></i>End Time
+                        </label>
+                        <input asp-for="FinishTime" type="time" class="sm-input" />
+                        <span asp-validation-for="FinishTime" class="sm-field-error"></span>
+                    </div>
+                </div>
+
+                <div class="sm-form-actions">
+                    <button type="submit" class="sm-btn sm-btn-primary sm-btn-block sm-btn-lg">
+                        <i class="bi bi-calendar-check-fill"></i> Confirm Booking
+                    </button>
+                    <a asp-action="Index" class="sm-cancel-link">Go back to bookings</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

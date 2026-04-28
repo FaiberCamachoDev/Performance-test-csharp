@@ -1,0 +1,54 @@
+@model Performance_test_csharp.Models.DeportiveSpace
+
+<div class="sm-form-card sm-animate">
+    <div class="sm-card">
+        <div class="sm-card-body-lg">
+            <div class="sm-form-header">
+                <h2>Add Sports Venue</h2>
+                <p>Register a new court, field, or training space.</p>
+            </div>
+
+            <form asp-action="Create" novalidate>
+                <div asp-validation-summary="ModelOnly" class="sm-alert-error"></div>
+
+                <div class="sm-form-group">
+                    <label asp-for="Name" class="sm-label">Venue Name</label>
+                    <input asp-for="Name" class="sm-input" placeholder="e.g. Central Tennis Court" />
+                    <span asp-validation-for="Name" class="sm-field-error"></span>
+                </div>
+
+                <div class="sm-row-2">
+                    <div class="sm-form-group">
+                        <label asp-for="DeportSpaceType" class="sm-label">Sport Type</label>
+                        <select asp-for="DeportSpaceType" class="sm-select">
+                            <option value="">— Select Type —</option>
+                            <option value="Football">⚽ Football</option>
+                            <option value="Basketball">🏀 Basketball</option>
+                            <option value="Tennis">🎾 Tennis</option>
+                            <option value="Gym">🏋️ Gym</option>
+                            <option value="Swimming">🏊 Swimming</option>
+                            <option value="Volleyball">🏐 Volleyball</option>
+                        </select>
+                        <span asp-validation-for="DeportSpaceType" class="sm-field-error"></span>
+                    </div>
+                    <div class="sm-form-group">
+                        <label asp-for="Capacidad" class="sm-label">Capacity (people)</label>
+                        <input asp-for="Capacidad" type="number" min="1" max="100" class="sm-input" placeholder="1 – 100" />
+                        <span asp-validation-for="Capacidad" class="sm-field-error"></span>
+                    </div>
+                </div>
+
+                <div class="sm-form-actions">
+                    <button type="submit" class="sm-btn sm-btn-primary sm-btn-block sm-btn-lg">
+                        <i class="bi bi-building-add"></i> Create Venue
+                    </button>
+                    <a asp-action="Index" class="sm-cancel-link">Back to venues list</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

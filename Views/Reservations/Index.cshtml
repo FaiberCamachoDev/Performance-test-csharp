@@ -1,0 +1,67 @@
+@model IEnumerable<Performance_test_csharp.Models.Reservation>
+
+<div class="sm-section-header sm-animate">
+    <div>
+        <h2 class="sm-section-title">Bookings</h2>
+        <p class="sm-section-sub">All scheduled reservations across all venues.</p>
+    </div>
+    <a asp-action="Create" class="sm-btn sm-btn-primary">
+        <i class="bi bi-calendar-plus-fill"></i> New Booking
+    </a>
+</div>
+
+<div class="sm-card sm-animate sm-animate-d1">
+    <div class="sm-table-wrap">
+        <table class="sm-table">
+            <thead>
+                <tr>
+                    <th>Member</th>
+                    <th>Venue</th>
+                    <th>Date</th>
+                    <th>Time Slot</th>
+                    <th style="text-align:center">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="5" style="text-align:center; padding:3rem; color:var(--text-muted);">
+                            <i class="bi bi-calendar-x" style="font-size:2rem; display:block; margin-bottom:.5rem;"></i>
+                            No bookings registered yet.
+                        </td>
+                    </tr>
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <div class="sm-avatar">
+                                    @(item.User != null && item.User.Name.Length > 0 ? item.User.Name[0].ToString().ToUpper() : "?")
+                                </div>
+                                <span style="font-weight:600;">@(item.User?.Name ?? "—")</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="sm-pill sm-pill-green">@(item.SportSpace?.Name ?? "—")</span>
+                        </td>
+                        <td class="sm-td-muted">
+                            <i class="bi bi-calendar3" style="margin-right:5px;"></i>
+                            @item.Date.ToString("MMM dd, yyyy")
+                        </td>
+                        <td class="sm-td-muted">
+                            <i class="bi bi-clock" style="margin-right:5px;"></i>
+                            @item.StartTime.ToString(@"hh\:mm") – @item.FinishTime.ToString(@"hh\:mm")
+                        </td>
+                        <td style="text-align:center;">
+                            <span class="sm-status @(item.Status == "Active" ? "sm-status-active" : "sm-status-inactive")">
+                                @item.Status
+                            </span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

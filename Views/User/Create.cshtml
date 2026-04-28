@@ -1,0 +1,54 @@
+@model Performance_test_csharp.Models.User
+
+<div class="sm-form-card sm-animate">
+    <div class="sm-card">
+        <div class="sm-card-body-lg">
+            <div class="sm-form-header">
+                <h2>Register Member</h2>
+                <p>Enter the athlete's information to create their account.</p>
+            </div>
+
+            <form asp-action="Create" novalidate>
+                <div asp-validation-summary="ModelOnly" class="sm-alert-error"></div>
+
+                <div class="sm-form-group">
+                    <label asp-for="Name" class="sm-label">Full Name</label>
+                    <input asp-for="Name" class="sm-input" placeholder="e.g. John Smith" />
+                    <span asp-validation-for="Name" class="sm-field-error"></span>
+                </div>
+
+                <div class="sm-form-group">
+                    <label asp-for="Document" class="sm-label">ID Document</label>
+                    <input asp-for="Document" class="sm-input" placeholder="Up to 10 characters" maxlength="10" />
+                    <span asp-validation-for="Document" class="sm-field-error"></span>
+                </div>
+
+                <hr class="sm-form-divider">
+
+                <div class="sm-row-2">
+                    <div class="sm-form-group">
+                        <label asp-for="Email" class="sm-label">Email Address</label>
+                        <input asp-for="Email" type="email" class="sm-input" placeholder="email@domain.com" />
+                        <span asp-validation-for="Email" class="sm-field-error"></span>
+                    </div>
+                    <div class="sm-form-group">
+                        <label asp-for="Phone" class="sm-label">Phone Number</label>
+                        <input asp-for="Phone" class="sm-input" placeholder="Up to 10 digits" maxlength="10" />
+                        <span asp-validation-for="Phone" class="sm-field-error"></span>
+                    </div>
+                </div>
+
+                <div class="sm-form-actions">
+                    <button type="submit" class="sm-btn sm-btn-primary sm-btn-block sm-btn-lg">
+                        <i class="bi bi-person-check-fill"></i> Save Member
+                    </button>
+                    <a asp-action="Index" class="sm-cancel-link">Cancel and return to list</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

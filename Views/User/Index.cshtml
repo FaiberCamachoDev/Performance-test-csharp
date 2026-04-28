@@ -1,0 +1,66 @@
+@model IEnumerable<Performance_test_csharp.Models.User>
+
+<div class="sm-section-header sm-animate">
+    <div>
+        <h2 class="sm-section-title">Member Directory</h2>
+        <p class="sm-section-sub">Registered athletes and their contact information.</p>
+    </div>
+    <a asp-action="Create" asp-controller="Users" class="sm-btn sm-btn-primary">
+        <i class="bi bi-person-plus-fill"></i> Register Member
+    </a>
+</div>
+
+<div class="sm-card sm-animate sm-animate-d1">
+    <div class="sm-table-wrap">
+        <table class="sm-table">
+            <thead>
+                <tr>
+                    <th>Member</th>
+                    <th>ID Document</th>
+                    <th>Email Address</th>
+                    <th>Phone</th>
+                    <th style="text-align:center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="5" style="text-align:center; padding:3rem; color:var(--text-muted);">
+                            <i class="bi bi-people" style="font-size:2rem; display:block; margin-bottom:.5rem;"></i>
+                            No members registered yet.
+                        </td>
+                    </tr>
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <div class="sm-avatar">@(item.Name.Length > 0 ? item.Name[0].ToString().ToUpper() : "?")</div>
+                                <span style="font-weight:600;">@item.Name</span>
+                            </div>
+                        </td>
+                        <td><span class="sm-pill sm-pill-gray">@item.Document</span></td>
+                        <td class="sm-td-muted">@item.Email</td>
+                        <td class="sm-td-muted">@item.Phone</td>
+                        <td style="text-align:center;">
+                            <div style="display:flex; gap:6px; justify-content:center;">
+                                <a asp-action="Edit" asp-route-id="@item.Id"
+                                   class="sm-btn sm-btn-outline sm-btn-sm"
+                                   title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.Id"
+                                   class="sm-btn sm-btn-ghost sm-btn-sm"
+                                   title="Details">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
